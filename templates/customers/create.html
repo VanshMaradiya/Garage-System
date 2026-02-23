@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Add Customer{% endblock %}
+
+{% block content %}
+<h2>Add Customer</h2>
+
+<form method="POST">
+    <label>Name</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Phone</label><br>
+    <input type="text" name="phone" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email"><br><br>
+
+    <label>Address</label><br>
+    <input type="text" name="address"><br><br>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{{ url_for('ui.customers_list') }}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

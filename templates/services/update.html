@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Update Service{% endblock %}
+
+{% block content %}
+<h2>Update Service #{{ service.id }}</h2>
+
+<form method="POST">
+
+    <label>Status</label><br>
+    <select name="status">
+        {% for s in ["Pending", "In Progress", "Completed"] %}
+        <option value="{{ s }}" {% if service.status == s %}selected{% endif %}>
+            {{ s }}
+        </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Mechanic</label><br>
+    <select name="mechanic_id">
+        <option value="">-- Select Mechanic --</option>
+        {% for m in mechanics %}
+            <option value="{{ m.id }}"
+                {% if service.assigned_mechanic_id == m.id %}selected{% endif %}>
+                {{ m.name }} {% if not m.is_available %}(Unavailable){% endif %}
+            </option>
+        {% endfor %}
+    </select><br><br>
+    
+    <button class="btn btn-success">Update</button>
+    <a href="{{ url_for('ui.services_list') }}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

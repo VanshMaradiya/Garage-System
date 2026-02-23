@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Customers{% endblock %}
+
+{% block content %}
+<h2>Customers</h2>
+
+<a href="{{ url_for('ui.customers_create') }}" class="btn btn-primary">Add Customer</a>
+
+<table style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in customers %}
+        <tr>
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.phone }}</td>
+            <td>{{ c.email or "-" }}</td>
+            <td>{{ c.address or "-" }}</td>
+            <td>
+                <!-- UPDATE: STAFF + ADMIN -->
+                <a href="{{ url_for('ui.customers_update', id=c.id) }}"
+                class="btn btn-success">
+                Edit
+                </a>
+
+                <!-- DELETE: ADMIN ONLY -->
+                {% if g.user.role == "admin" %}
+                <form method="POST"
+                    action="{{ url_for('ui.customers_delete', id=c.id) }}"
+                    style="display:inline;"
+                    onsubmit="return confirm('Delete this customer?');">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                {% endif %}
+             </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

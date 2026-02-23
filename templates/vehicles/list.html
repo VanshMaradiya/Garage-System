@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Vehicles{% endblock %}
+
+{% block content %}
+<h2>Vehicles</h2>
+
+<a href="{{ url_for('ui.vehicles_create') }}" class="btn btn-primary">Add Vehicle</a>
+
+<table style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vehicle No</th>
+            <th>Type</th>
+            <th>brand</th>
+            <th>Model</th>
+            <th>Customer</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in vehicles %}
+        <tr>
+            <td>{{ v.id }}</td>
+            <td>{{ v.vehicle_number }}</td>
+            <td>{{ v.vehicle_type }}</td>
+            <td>{{ v.brand or "-" }}</td>
+            <td>{{ v.model or "-" }}</td>
+            <td>{{ v.customer.name }}</td>
+            <td>
+                <!-- UPDATE: ADMIN + STAFF -->
+                <a href="{{ url_for('ui.vehicles_update', id=v.id) }}"
+                    class="btn btn-success">
+                    Edit
+                </a>
+
+                <!-- DELETE: ADMIN ONLY -->
+                {% if g.user.role == "admin" %}
+                <form method="POST"
+                        action="{{ url_for('ui.vehicles_delete', id=v.id) }}"
+                        style="display:inline;"
+                        onsubmit="return confirm('Delete this vehicle?');">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

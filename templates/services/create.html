@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Create Service{% endblock %}
+
+{% block content %}
+<h2>Create Service Request</h2>
+
+<form method="POST">
+    <label>Vehicle</label><br>
+    <select name="vehicle_id" required>
+        {% for v in vehicles %}
+        <option value="{{ v.id }}">{{ v.vehicle_number }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Service Type</label><br>
+    <input type="text" name="service_type" required><br><br>
+
+    <label>Service Date</label><br>
+    <input type="date" name="service_date" required><br><br>
+
+    <label>Problem Description</label><br>
+    <textarea name="problem_description" rows="4" required></textarea><br><br>
+
+    <label>Assign Mechanic</label><br>
+    <select name="mechanic_id">
+        <option value="">-- Select Mechanic --</option>
+        {% for m in mechanics %}
+            <option value="{{ m.id }}">{{ m.name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <button class="btn btn-success">Create</button>
+    <a href="{{ url_for('ui.services_list') }}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

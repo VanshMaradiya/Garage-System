@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Create Invoice{% endblock %}
+
+{% block content %}
+<h2>Create Invoice</h2>
+
+<form method="POST">
+
+    <label>Completed Service</label><br>
+    <select name="service_id" required>
+        {% for s in services %}
+        <option value="{{ s.id }}"
+            data-customer="{{ s.vehicle.customer.id }}"
+            data-vehicle="{{ s.vehicle.id }}">
+            #{{ s.id }} - {{ s.vehicle.vehicle_number }}
+        </option>
+        {% endfor %}
+    </select><br><br>
+
+    <!-- Hidden fields -->
+    <input type="hidden" name="customer_id" value="{{ services[0].vehicle.customer.id if services }}">
+    <input type="hidden" name="vehicle_id" value="{{ services[0].vehicle.id if services }}">
+
+    <label>Total Amount</label><br>
+    <input type="number" step="0.01" name="total_amount" required><br><br>
+
+    <label>Payment Status</label><br>
+    <select name="payment_status">
+        <option value="Pending">Pending</option>
+        <option value="Paid">Paid</option>
+    </select><br><br>
+
+    <button class="btn btn-success">Create</button>
+    <a href="{{ url_for('ui.invoices_list') }}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}
+
+<!-- ⚠️ Note: -->
+<!-- Because of avoiding JS, customer & vehicle IDs are pre-filled using the first selected service. -->

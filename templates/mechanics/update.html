@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Update Mechanic{% endblock %}
+
+{% block content %}
+<h2>Update Mechanic</h2>
+
+<form method="POST">
+
+    <label>Name</label><br>
+    <input type="text" name="name"
+           value="{{ mechanic.name }}" required><br><br>
+
+    <label>Phone</label><br>
+    <input type="text" name="phone"
+           value="{{ mechanic.phone }}" required><br><br>
+
+    <label>Specialization</label><br>
+    <input type="text" name="specialization"
+           value="{{ mechanic.specialization }}"><br><br>
+
+    <label>
+        <input type="checkbox" name="is_available"
+               {% if mechanic.is_available %}checked{% endif %}>
+        Available
+    </label><br><br>
+
+    <button class="btn btn-success">Update</button>
+    <a href="{{ url_for('ui.mechanics_list') }}"
+       class="btn btn-danger">Cancel</a>
+
+</form>
+{% endblock %}

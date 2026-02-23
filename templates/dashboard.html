@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<div class="card-grid">
+
+    <div class="card">
+        Customers
+        <div>{{ total_customers }}</div>
+    </div>
+
+    <div class="card">
+        Vehicles
+        <div>{{ total_vehicles }}</div>
+    </div>
+
+    <div class="card">
+        Mechanics
+        <div>{{ total_mechanics }}</div>
+    </div>
+
+    <div class="card">
+        Available Mechanics
+        <div>{{ available_mechanics }}</div>
+    </div>
+
+    <div class="card">
+        Pending Services
+        <div>{{ pending_services }}</div>
+    </div>
+
+    <div class="card">
+        Completed Services
+        <div>{{ completed_services }}</div>
+    </div>
+
+    <div class="card">
+        Total Invoices
+        <div>{{ total_invoices }}</div>
+    </div>
+
+    <div class="card">
+        Paid / Pending Invoices
+        <div>{{ paid_invoices }} / {{ pending_invoices }}</div>
+    </div>
+
+</div>
+
+{% endblock %}

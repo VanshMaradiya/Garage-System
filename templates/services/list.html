@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Service Requests{% endblock %}
+
+{% block content %}
+<h2>Service Requests</h2>
+
+<a href="{{ url_for('ui.services_create') }}" class="btn btn-primary">Create Service</a>
+
+<table style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vehicle</th>
+            <th>Service Type</th>
+            <th>Status</th>
+            <th>Mechanic</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in services %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.vehicle.vehicle_number }}</td>
+            <td>{{ s.service_type }}</td>
+            <td>{{ s.status }}</td>
+            <td>{{ s.mechanic.name if s.mechanic else "-" }}</td>
+            <td>
+                 <!-- UPDATE: ADMIN + STAFF -->
+                <a class="btn btn-success"
+                   href="{{ url_for('ui.services_update', service_id=s.id) }}">
+                   Update
+                </a>
+
+                <!-- DELETE: ADMIN ONLY -->
+                {% if g.user.role == "admin" %}
+                <form method="POST"
+                        action="{{ url_for('ui.services_delete', id=s.id) }}"
+                        style="display:inline;"
+                        onsubmit="return confirm('Delete this service request?');"> 
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                {% endif %}           
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

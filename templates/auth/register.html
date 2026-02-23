@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h2>Register</h2>
+
+<form method="POST">
+
+    <label>Username</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="password" required><br><br>
+
+    <label>Role</label><br>
+    <select name="role">
+        <option value="admin">Admin</option>
+        <option value="staff">Staff</option>
+    </select><br><br>
+
+    <button class="btn btn-success">Register</button>
+    <a href="{{ url_for('ui.login') }}" class="btn btn-danger">Cancel</a>
+    
+</form>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Update Vehicle{% endblock %}
+
+{% block content %}
+<h2>Update Vehicle</h2>
+
+<form method="POST">
+
+    <label>Customer</label><br>
+    <select name="customer_id" required>
+        {% for c in customers %}
+        <option value="{{ c.id }}"
+            {% if c.id == vehicle.customer_id %}selected{% endif %}>
+            {{ c.name }}
+        </option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Vehicle Number</label><br>
+    <input type="text" name="vehicle_number"
+           value="{{ vehicle.vehicle_number }}" required><br><br>
+
+    <label>Vehicle Type</label><br>
+    <input type="text" name="vehicle_type"
+           value="{{ vehicle.vehicle_type }}" required><br><br>
+
+    <label>Brand</label><br>
+    <input type="text" name="brand"
+           value="{{ vehicle.brand }}"><br><br>
+
+    <label>Model</label><br>
+    <input type="text" name="model"
+           value="{{ vehicle.model }}"><br><br>
+
+    <button class="btn btn-success">Update</button>
+    <a href="{{ url_for('ui.vehicles_list') }}"
+       class="btn btn-danger">Cancel</a>
+
+</form>
+{% endblock %}

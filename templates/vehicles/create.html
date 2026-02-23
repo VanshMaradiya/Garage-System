@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Add Vehicle{% endblock %}
+
+{% block content %}
+<h2>Add Vehicle</h2>
+
+<form method="POST">
+    <label>Customer</label><br>
+    <select name="customer_id" required>
+        <option value="">Select Customer</option>
+        {% for c in customers %}
+        <option value="{{ c.id }}">{{ c.name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Vehicle Number</label><br>
+    <input type="text" name="vehicle_number" required><br><br>
+
+    <label>Vehicle Type</label><br>
+    <input type="text" name="vehicle_type" required><br><br>
+
+    <label>brand</label><br>
+    <input type="text" name="brand"><br><br>
+
+    <label>Model</label><br>
+    <input type="text" name="model"><br><br>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{{ url_for('ui.vehicles_list') }}" class="btn btn-danger">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Update Invoice{% endblock %}
+
+{% block content %}
+<h2>Update Invoice #{{ invoice.id }}</h2>
+
+<form method="POST">
+
+    <label>Payment Status</label><br>
+    <select name="payment_status">
+        <option value="Pending"
+            {% if invoice.payment_status == "Pending" %}selected{% endif %}>
+            Pending
+        </option>
+        <option value="Paid"
+            {% if invoice.payment_status == "Paid" %}selected{% endif %}>
+            Paid
+        </option>
+    </select><br><br>
+
+    <button class="btn btn-success">Update</button>
+    <a href="{{ url_for('ui.invoices_list') }}"
+       class="btn btn-danger">Cancel</a>
+
+</form>
+{% endblock %}

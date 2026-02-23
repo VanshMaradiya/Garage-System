@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Mechanics{% endblock %}
+
+{% block content %}
+<h2>Mechanics</h2>
+
+<a href="{{ url_for('ui.mechanics_create') }}" class="btn btn-primary">
+    Add Mechanic
+</a>
+
+{% if mechanics %}
+<table style="margin-top:15px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Specialization</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in mechanics %}
+        <tr>
+            <td>{{ m.id }}</td>
+            <td>{{ m.name }}</td>
+            <td>{{ m.phone }}</td>
+            <td>{{ m.specialization or "-" }}</td>
+            <td>
+                {% if m.is_available %}
+                    <span style="color: green; font-weight: bold;">Yes</span>
+                {% else %}
+                    <span style="color: red; font-weight: bold;">No</span>
+                {% endif %}
+            </td>
+            <td>
+                <!-- UPDATE: ADMIN + STAFF -->
+                <a href="{{ url_for('ui.mechanics_update', id=m.id) }}"
+                    class="btn btn-success">
+                    Edit
+                </a>
+
+                <!-- DELETE: ADMIN ONLY -->
+                {% if g.user.role == "admin" %}
+                <form method="POST"
+                      action="{{ url_for('ui.mechanics_delete', id=m.id) }}"
+                      style="display:inline;"
+                      onsubmit="return confirm('Delete this mechanic?');">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No mechanics added yet.</p>
+{% endif %}
+{% endblock %}

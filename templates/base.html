@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Garage Management{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="header">
+        <h1>Garage Management System</h1>
+    </header>
+
+    <nav class="navbar">
+        {% if g.user %}
+            <div class="nav-left">
+                <a href="{{ url_for('ui.dashboard') }}">Dashboard</a>
+
+                {% if g.user.role == "admin" %}
+                    <a href="{{ url_for('ui.customers_list') }}">Customers</a>
+                    <a href="{{ url_for('ui.mechanics_list') }}">Mechanics</a>
+                    <a href="{{ url_for('ui.invoices_list') }}">Invoices</a>
+                {% endif %}
+
+                <a href="{{ url_for('ui.vehicles_list') }}">Vehicles</a>
+                <a href="{{ url_for('ui.services_list') }}">Services</a>
+            </div>
+
+            <div class="nav-right">
+                <span class="logged-user">
+                    Logged in as <strong>{{ g.user.username }}</strong>
+                    ({{ g.user.role }})
+                </span>
+                <a href="{{ url_for('ui.logout') }}">Logout</a>
+            </div>
+        {% else %}
+            <a href="{{ url_for('ui.login') }}">Login</a>
+        {% endif %}
+    </nav>
+
+
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>© Garage Management</p>
+    </footer>
+
+</body>
+</html>
