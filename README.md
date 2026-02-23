@@ -99,6 +99,4 @@ garage-management/
 
 ---
 
-## 👤 Author
-Kashyap Selarka
-#
+
